@@ -1,3 +1,7 @@
+
+#TODO: ADD THE DOCUMENTATION
+
+
 class World 
     
     attr_accessor :players
@@ -164,33 +168,42 @@ class Game
 
         while @gameWorld.totalEnemyShip(whoseTurn) > 0
             whoseTurn +=1            
+    
             if whoseTurn>@nOfPlayer-1
                 whoseTurn = 0
             end
-            puts "************"
-            puts "Player #{whoseTurn+1}"
-            puts "************"
-
-            #TODO: if player ships == player lose and should not be able to attack
     
-            #restart player to 1 when everyone finished their turn
-            
-            puts "attack Who?"
-            target = STDIN.gets
-            target = target.to_i
+            if @gameWorld.players[whoseTurn].shipsLeft <= 0
+                puts "Player #{whoseTurn+1} have no more ships"
+            else
+                puts "************"
+                puts "Player #{whoseTurn+1}"
+                puts "************"
 
-            puts "coordinates?"
-            launchCoordinates = self.getCoordinate
+                #TODO: if player attack itself ask for confirmation
+                #TODO: if player attack a losing player ask for confirmation
+                #TODO: check if receiver loses and make an announcement
+                #TODO: Create a loser status maybe?
+        
+                #restart player to 1 when everyone finished their turn
+                
+                puts "attack Who?"
+                target = STDIN.gets
+                target = target.to_i
 
-            puts "launching \n \n"
-            @gameWorld.attack(whoseTurn,target-1,launchCoordinates.map{|where| where-1})
+                puts "coordinates?"
+                launchCoordinates = self.getCoordinate
 
-            puts "enemy left : #{@gameWorld.totalEnemyShip(whoseTurn)}"
-            puts"Ship left : "
-            playerCounter = 1
-            @gameWorld.players.each do |player|
-                puts "Player #{playerCounter}: #{player.shipsLeft}"
-                playerCounter+=1
+                puts "launching \n \n"
+                @gameWorld.attack(whoseTurn,target-1,launchCoordinates.map{|where| where-1})
+
+                puts "enemy left : #{@gameWorld.totalEnemyShip(whoseTurn)}"
+                puts"Ship left : "
+                playerCounter = 1
+                @gameWorld.players.each do |player|
+                    puts "Player #{playerCounter}: #{player.shipsLeft}"
+                    playerCounter+=1
+                end
             end
         end
 
