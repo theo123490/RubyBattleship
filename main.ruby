@@ -211,8 +211,6 @@ class Game
         puts "PLAYER #{whoseTurn+1} WINS!!!!!!!!"
         puts "*********************************\n\n\n"
 
-
-
         
     end
 
